@@ -8,31 +8,6 @@ class HashTableEntry:
         self.next = None
 
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
-
-    def add_to_head(self,key, value):
-        new_node = HashTableEntry(value, key)
-        if not self.head:
-            self.head = new_node
-            self.tail = new_node
-        else:
-            self.head.next = self.head
-            self.head = new_node
-
-    def search(self, key):
-        current = self.head
-        found = False
-        while current and found is False:
-            if(current.key == key):
-                found = True
-            else:
-                current = current.next
-        if current == None:
-            ValueError('Data is not in the list')
-        return current
 
 # Hash table can't have fewer than this many slots
 MIN_CAPACITY = 8
@@ -116,9 +91,17 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        self.bucket[index] = LinkedList()
-        self.bucket[index].add_to_head(key,value)
-
+        if self.bucket[index] is None:
+            self.bucket[index] = HashTableEntry(key,value)
+        else:
+            current = self.bucket[index]
+            while current is not None:
+                if current.key == key:
+                    current.value = value
+                if current.key is None:
+                    current.next = HashTableEntry(key, value)
+                    return 
+                current = current.next
 
     def delete(self, key):
         """
@@ -130,7 +113,11 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        self.bucket[index] = None
+        current = self.bucket[index]
+        while current is not None:
+            if current.key == key:
+                current = None
+            current = current.next
 
 
     def get(self, key):
@@ -143,7 +130,12 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        return self.bucket[index]
+        current = self.bucket[index]
+        while current is not None:
+            if current.key == key:
+                return current.value
+            current = current.next
+        return None
 
 
     def resize(self, new_capacity):
@@ -157,43 +149,48 @@ class HashTable:
     
 
 # if __name__ == "__main__":
-#     ht = HashTable(8)
+ht = HashTable(8)
 
-#     ht.put("line_1", "'Twas brillig, and the slithy toves")
-#     ht.put("line_2", "Did gyre and gimble in the wabe:")
-#     ht.put("line_3", "All mimsy were the borogoves,")
-#     ht.put("line_4", "And the mome raths outgrabe.")
-#     ht.put("line_5", '"Beware the Jabberwock, my son!')
-#     ht.put("line_6", "The jaws that bite, the claws that catch!")
-#     ht.put("line_7", "Beware the Jubjub bird, and shun")
-#     ht.put("line_8", 'The frumious Bandersnatch!"')
-#     ht.put("line_9", "He took his vorpal sword in hand;")
-#     ht.put("line_10", "Long time the manxome foe he sought--")
-#     ht.put("line_11", "So rested he by the Tumtum tree")
-#     ht.put("line_12", "And stood awhile in thought.")
+ht.put("line_1", "'Twas brillig, and the slithy toves")
+ht.put("line_2", "Did gyre and gimble in the wabe:")
+ht.put("line_3", "All mimsy were the borogoves,")
+ht.put("line_4", "And the mome raths outgrabe.")
+ht.put("line_5", '"Beware the Jabberwock, my son!')
+ht.put("line_6", "The jaws that bite, the claws that catch!")
+ht.put("line_7", "Beware the Jubjub bird, and shun")
+ht.put("line_8", 'The frumious Bandersnatch!"')
+ht.put("line_9", "He took his vorpal sword in hand;")
+ht.put("line_10", "Long time the manxome foe he sought--")
+ht.put("line_11", "So rested he by the Tumtum tree")
+ht.put("line_12", "And stood awhile in thought.")
+ht.put("line_13", "culo")
 
-#     print("")
+print("")
 
-#     # Test storing beyond capacity
-#     for i in range(1, 13):
-#         print(ht.get(f"line_{i}"))
+    # Test storing beyond capacity
+for i in range(1, 14):
+    print(ht.get(f"line_{i}"))
 
-#     # Test resizing
-#     old_capacity = ht.get_num_slots()
-#     ht.resize(ht.capacity * 2)
-#     new_capacity = ht.get_num_slots()
-
-#     print(f"\nResized from {old_capacity} to {new_capacity}.\n")
-
-#     # Test if data intact after resizing
-#     for i in range(1, 13):
-#         print(ht.get(f"line_{i}"))
-
-#     print("")
+print("")
 
 
-table = HashTable(8)
 
-table.put('hello', 'there')
+    # # Test resizingls
+    # old_capacity = ht.get_num_slots()
+    # ht.resize(ht.capacity * 2)
+    # new_capacity = ht.get_num_slots()
 
-print(table.bucket[7])
+    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+
+    # # Test if data intact after resizing
+    # for i in range(1, 13):
+    #     print(ht.get(f"line_{i}"))
+
+    # print("")
+
+
+# table = HashTable(8)
+
+# table.put('hello', 'there')
+
+# print(table.bucket[7])
