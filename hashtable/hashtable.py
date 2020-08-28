@@ -90,7 +90,17 @@ class HashTable:
         """
         # Your code here
         index = self.hash_index(key)
-        self.bucket[index] = value
+        if self.bucket[index] is None:
+            self.bucket[index] = HashTableEntry(key,value)
+        else:
+            current = self.bucket[index]
+            while current is not None:
+                if current.key == key:
+                    current.value = value
+                if current.key is None:
+                    current.next = HashTableEntry(key, value)
+                    return 
+                current = current.next
 
     def delete(self, key):
         """
