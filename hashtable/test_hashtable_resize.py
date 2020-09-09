@@ -1,13 +1,8 @@
 import unittest
-
 from hashtable import HashTable
-
-
 class TestHashTable(unittest.TestCase):
-
     def test_hash_table_insertion_and_retrieval(self):
         ht = HashTable(8)
-
         ht.put("key-0", "val-0")
         ht.put("key-1", "val-1")
         ht.put("key-2", "val-2")
@@ -18,7 +13,6 @@ class TestHashTable(unittest.TestCase):
         ht.put("key-7", "val-7")
         ht.put("key-8", "val-8")
         ht.put("key-9", "val-9")
-
         return_value = ht.get("key-0")
         self.assertTrue(return_value == "val-0")
         return_value = ht.get("key-1")
@@ -39,10 +33,8 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value == "val-8")
         return_value = ht.get("key-9")
         self.assertTrue(return_value == "val-9")
-
     def test_hash_table_pution_overwrites_correctly(self):
         ht = HashTable(8)
-
         ht.put("key-0", "val-0")
         ht.put("key-1", "val-1")
         ht.put("key-2", "val-2")
@@ -53,7 +45,6 @@ class TestHashTable(unittest.TestCase):
         ht.put("key-7", "val-7")
         ht.put("key-8", "val-8")
         ht.put("key-9", "val-9")
-
         ht.put("key-0", "new-val-0")
         ht.put("key-1", "new-val-1")
         ht.put("key-2", "new-val-2")
@@ -64,7 +55,6 @@ class TestHashTable(unittest.TestCase):
         ht.put("key-7", "new-val-7")
         ht.put("key-8", "new-val-8")
         ht.put("key-9", "new-val-9")
-
         return_value = ht.get("key-0")
         self.assertTrue(return_value == "new-val-0")
         return_value = ht.get("key-1")
@@ -85,10 +75,8 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value == "new-val-8")
         return_value = ht.get("key-9")
         self.assertTrue(return_value == "new-val-9")
-
     def test_hash_table_removes_correctly(self):
         ht = HashTable(8)
-
         ht.put("key-0", "val-0")
         ht.put("key-1", "val-1")
         ht.put("key-2", "val-2")
@@ -99,7 +87,6 @@ class TestHashTable(unittest.TestCase):
         ht.put("key-7", "val-7")
         ht.put("key-8", "val-8")
         ht.put("key-9", "val-9")
-
         return_value = ht.get("key-0")
         self.assertTrue(return_value == "val-0")
         return_value = ht.get("key-1")
@@ -120,7 +107,6 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value == "val-8")
         return_value = ht.get("key-9")
         self.assertTrue(return_value == "val-9")
-
         ht.delete("key-9")
         ht.delete("key-8")
         ht.delete("key-7")
@@ -131,7 +117,6 @@ class TestHashTable(unittest.TestCase):
         ht.delete("key-2")
         ht.delete("key-1")
         ht.delete("key-0")
-
         return_value = ht.get("key-0")
         self.assertTrue(return_value is None)
         return_value = ht.get("key-1")
@@ -152,10 +137,8 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value is None)
         return_value = ht.get("key-9")
         self.assertTrue(return_value is None)
-
     def test_hash_table_resize(self):
         ht = HashTable(8)
-
         ht.put("key-0", "val-0")
         ht.put("key-1", "val-1")
         ht.put("key-2", "val-2")
@@ -166,11 +149,8 @@ class TestHashTable(unittest.TestCase):
         ht.put("key-7", "val-7")
         ht.put("key-8", "val-8")
         ht.put("key-9", "val-9")
-
         ht.resize(1024)
-
         self.assertTrue(ht.get_num_slots() == 1024)
-
         return_value = ht.get("key-0")
         self.assertTrue(return_value == "val-0")
         return_value = ht.get("key-1")
@@ -191,7 +171,5 @@ class TestHashTable(unittest.TestCase):
         self.assertTrue(return_value == "val-8")
         return_value = ht.get("key-9")
         self.assertTrue(return_value == "val-9")
-
-
 if __name__ == '__main__':
     unittest.main()
