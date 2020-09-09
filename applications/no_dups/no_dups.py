@@ -1,5 +1,17 @@
+cache = {}
 def no_dups(s):
     # Your code here
+    n = []
+    for word in s.split():
+        if word in cache:
+            pass
+        else:
+            n.append(word)
+            cache[word] = word
+    new_string = " ".join(n)
+
+    return new_string
+
 
 
 

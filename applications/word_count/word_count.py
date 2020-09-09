@@ -1,5 +1,18 @@
 def word_count(s):
     # Your code here
+    cache = {}
+    splitted = []
+    for n in s.split():
+        splitted.append(n.lower())
+
+    for i in splitted:
+        if i in cache:
+            cache[i] += 1
+        else:
+            cache[i] = 1
+    
+    return cache
+
 
 
 

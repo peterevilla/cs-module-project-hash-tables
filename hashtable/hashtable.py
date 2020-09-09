@@ -112,12 +112,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        index = self.hash_index(key)
-        current = self.bucket[index]
-        while current is not None:
-            if current.key == key:
-                current = None
-            current = current.next
+        self.put(key, None)
 
 
     def get(self, key):
