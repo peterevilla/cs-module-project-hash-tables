@@ -1,17 +1,16 @@
 def word_count(s):
     # Your code here
-    cache = {}
-    splitted = []
-    for n in s.split():
-        splitted.append(n.lower())
-
-    for i in splitted:
-        if i in cache:
-            cache[i] += 1
-        else:
-            cache[i] = 1
+    dictionary = {}
+    special_chars = ['"', ':', ';', ',', '.', '-', '+', '=', '/', '\\', '|', '[', ']', '{', '}', '(', ')', '*', '^', '&']
+    string2 = ''.join(c.lower() for c in s if not c in special_chars)
     
-    return cache
+    for word in string2.split():
+        if word in dictionary:
+            dictionary[word] += 1
+        else:
+            dictionary[word] = 1
+    
+    return dictionary
 
 
 
